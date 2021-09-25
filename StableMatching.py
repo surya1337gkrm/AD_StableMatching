@@ -28,7 +28,6 @@ def findWomenPref(pairlist,woman):
 
 def findStableMatch():
     start=time.time()
-    
     random.seed(0)
     menPref,womenPref=(createPrefLists(n)[0]),(createPrefLists(n)[1])
     menPrefList=list(menPref.values())
@@ -66,7 +65,7 @@ def findStableMatch():
                 else:
                     continue
     end=time.time()
-    execTime=(end-start)           
+    execTime=(end-start)*1000           
     return pairs,menPref,womenPref,execTime           
 
 def verifyStableMatch(pairs,mlist,wlist):
@@ -91,15 +90,22 @@ def verifyStableMatch(pairs,mlist,wlist):
             
 
 pairs,mlist,wlist,execTime=findStableMatch()   
+   
+
+print("Men Preference List : \n {0}".format(mlist)) 
+print("Women Preference List : \n {0}".format(wlist))
+print("Stable Matching : \n {0}".format(pairs))
+l="For n={0}\nMen Preference List : {1}\nWomen Preference List : {2}\nStable Matching: {3}\n".format(n,mlist,wlist,pairs)
+resultFile=open("resultFile.txt",'a')
+resultFile.writelines(l+'\n')
+
+print("Total time for Execution: {0}".format(execTime))
+
+
 verifiedStableMatch=verifyStableMatch(pairs,mlist,wlist)
 #verifiedStableMatch=verifyStableMatch([(0,1),(3,2),(2,3),(1,0)],mlist,wlist)
 
 if verifiedStableMatch==False:
     print('Matching isnt stable.')
 else:
-    print('Matching is Stable.')    
-
-print("Men Preference List : \n {0}".format(mlist)) 
-print("Women Preference List : \n {0}".format(wlist))
-print("Stable Matching : \n {0}".format(pairs))
-print("Total time for Execution: {0}".format(execTime))
+    print('Matching is Stable.') 
